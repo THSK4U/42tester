@@ -14,7 +14,8 @@ export default function CodeEditor({ value, onChange, placeholder, readOnly = fa
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       readOnly={readOnly}
-      className="w-full h-full p-4 font-mono text-sm border-0 bg-white text-gray-900 resize-none focus:outline-none focus:ring-0 placeholder-gray-400"
+      className="w-full h-full p-4 font-mono text-sm border-0 bg-white text-gray-900 resize-none focus:outline-none focus:ring-0 placeholder-gray-400
+      dark:bg-background dark:text-foreground dark:placeholder-muted-foreground"
       spellCheck="false"
     />
   )
