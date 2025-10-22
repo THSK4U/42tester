@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Loader2, Copy, Download, RotateCcw, Share2, Maximize2 } from "lucide-react"
+import { Loader2, Copy, Download, RotateCcw, Share2, Maximize2, Moon, Sun } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
+import { useTheme } from "@/hooks/use-theme"
 import CodeEditor from "@/components/code-editor"
 import OutputDisplay from "@/components/output-display"
 
@@ -11,6 +12,7 @@ export default function Home() {
   const [inputCode, setInputCode] = useState("")
   const [outputCode, setOutputCode] = useState("")
   const [loading, setLoading] = useState(false)
+  const { theme, toggleTheme, mounted } = useTheme()
 
   const generateTests = async () => {
     if (!inputCode.trim()) {
@@ -90,17 +92,18 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <div className="border-b border-gray-200 bg-white sticky top-0 z-10">
+    <main className="min-h-screen bg-background dark:bg-background">
+      <div className="border-b border-border bg-background dark:bg-background sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700">main.c</span>
+            <span className="text-sm font-medium text-foreground">main.c</span>
           </div>
           <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-foreground ml-2">Output</span>
             <Button
               onClick={generateTests}
               disabled={loading}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6"
+              className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-6"
               size="sm"
             >
               {loading ? (
@@ -112,8 +115,18 @@ export default function Home() {
                 "Run"
               )}
             </Button>
-            <span className="text-sm font-medium text-gray-700 ml-2">Output</span>
-            <Button onClick={clearAll} variant="ghost" className="text-gray-600 hover:text-gray-900" size="sm">
+            <button
+              onClick={toggleTheme}
+              className="p-2 hover:bg-muted dark:hover:bg-muted rounded transition-colors"
+              title="Toggle theme"
+            >
+              {mounted && theme === "light" ? (
+                <Moon className="w-4 h-4 text-foreground" />
+              ) : (
+                <Sun className="w-4 h-4 text-foreground" />
+              )}
+            </button>
+            <Button onClick={clearAll} variant="ghost" className="text-foreground hover:bg-muted" size="sm">
               Clear
             </Button>
           </div>
@@ -122,7 +135,7 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto h-[calc(100vh-60px)] flex">
         {/* Input Editor */}
-        <div className="flex-1 border-r border-gray-200 flex flex-col">
+        <div className="flex-1 border-r border-border flex flex-col">
           <CodeEditor value={inputCode} onChange={setInputCode} placeholder="Enter your C function here..." />
         </div>
 
@@ -130,7 +143,7 @@ export default function Home() {
         <div className="flex-1 flex flex-col">
           <OutputDisplay code={outputCode} />
           {outputCode && (
-            <div className="border-t border-gray-200 p-3 flex gap-2 bg-gray-50">
+            <div className="border-t border-border p-3 flex gap-2 bg-muted dark:bg-muted">
               <Button onClick={copyToClipboard} variant="outline" className="text-sm bg-transparent" size="sm">
                 <Copy className="mr-2 h-4 w-4" />
                 Copy
