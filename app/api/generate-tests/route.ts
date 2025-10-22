@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}))
-      console.error("[v0] OpenRouter error response:", errorData)
+      console.error("OpenRouter error response:", errorData)
       throw new Error(`OpenRouter API error: ${response.status}`)
     }
 
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ result })
   } catch (error) {
-    console.error("[v0] Error:", error)
+    console.error("Error:", error)
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to generate tests" },
       { status: 500 },
