@@ -97,15 +97,6 @@ export default function Home() {
             <span className="text-sm font-medium text-gray-700">main.c</span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="p-2 hover:bg-gray-100 rounded transition-colors" title="Fullscreen">
-              <Maximize2 className="w-4 h-4 text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded transition-colors" title="Refresh">
-              <RotateCcw className="w-4 h-4 text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded transition-colors" title="Share">
-              <Share2 className="w-4 h-4 text-gray-600" />
-            </button>
             <Button
               onClick={generateTests}
               disabled={loading}
